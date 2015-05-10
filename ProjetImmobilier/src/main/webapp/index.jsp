@@ -40,8 +40,8 @@
 				<label>Quartier</label>
 				<form:select id="quartiers" path="quartier">
 					<form:option value="" label="--- Selectionner Quartiers ---" />
-<%-- 					<form:options items="${allQuartiers}" --%>
-<%-- 						itemValue="libelleQuartier" itemLabel="libelleQuartier" /> --%>
+					<form:options class="quartierItem" items="${allQuartiers}"
+ 						itemValue="libelleQuartier" itemLabel="libelleQuartier" /> 
 				</form:select>
 
 				<input type="submit">

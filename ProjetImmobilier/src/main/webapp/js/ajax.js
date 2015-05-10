@@ -24,15 +24,19 @@ $(document).ready(function() {
     // à la sélection d une commune dans la liste
     $communes.on('change', function() {
         var val = $(this).val(); // on récupère la valeur de la commune
- 
+        
         if(val != '') {
             $quartiers.empty(); // on vide la liste des quartiers
-             
+            
+            console.log("communes on change");
             $.ajax({
                 url: 'index.do',
                 data: 'nom_commune='+ val, // on envoie $_GET['nom_commune']
                 dataType: 'json',
                 success: function(data) {
+                	console.log("function data quartier");
+                	console.log(data);
+                	$(".quartierItem").remove();
                     $.each(data, function(index, value) {
 //                    	$quartiers.append('<option value="'+ index +'">'+ value +'</option>');
                     	//$quartiers.append('<form:options items="${allQuartiers}" itemValue="'+libelleQuartier+'"" itemLabel="'+libelleQuartier+'"');
