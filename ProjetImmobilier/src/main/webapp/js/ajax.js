@@ -30,11 +30,11 @@ $(document).ready(function() {
             
             console.log("communes on change");
             $.ajax({
-                url: 'index.do',
+                url: 'index.do/commune',
                 data: 'nom_commune='+ val, // on envoie $_GET['nom_commune']
                 dataType: 'json',
                 success: function(data) {
-                	console.log("function data quartier");
+                	console.log("test function 2 ajax");
                 	console.log(data);
                 	$(".quartierItem").remove();
                     $.each(data, function(index, value) {
