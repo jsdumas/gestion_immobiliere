@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.treeptik.exception.ControllerException;
@@ -27,10 +29,8 @@ import fr.treeptik.service.CommuneService;
 import fr.treeptik.service.LogementService;
 import fr.treeptik.service.QuartierService;
 
-
-@Scope("request")
 @Controller
-@RequestMapping("/")
+//@RestController
 // @SessionAttributes("logement")
 public class LogementController implements Serializable {
 
@@ -91,9 +91,9 @@ public class LogementController implements Serializable {
 		}
 	}
 	
-	@RequestMapping(value = "/index.do/commune", method = RequestMethod.GET)
+	@RequestMapping(value = "/commune.do", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Quartier> getQuartierList(@RequestParam(value = "nom_commune", required = true) String nomCommune) throws ControllerException{
+	public List<Quartier> getQuartierList(@RequestParam("communeNom") String nomCommune) throws ControllerException{
 		try {
 			logger.debug("nom commune : " + nomCommune);
 			return quartierService.findbyCommune(nomCommune);
@@ -108,6 +108,7 @@ public class LogementController implements Serializable {
 	public String initForm(Model model) throws ControllerException {
 		
 		this.getCommunesList();
+//		this.getQuartierList(nomCommune);
 		model.addAttribute("searchModel", new SearchModel());
 		return "index.jsp";
 	}

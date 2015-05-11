@@ -30,18 +30,24 @@ $(document).ready(function() {
             
             console.log("communes on change");
             $.ajax({
-                url: 'index.do/commune',
-                data: 'nom_commune='+ val, // on envoie $_GET['nom_commune']
+                url: 'commune.do',
+                data: 'communeNom='+ val, // on envoie $_GET['nom_commune']
                 dataType: 'json',
                 success: function(data) {
                 	console.log("test function 2 ajax");
-                	console.log(data);
+                	console.log(data)
                 	$(".quartierItem").remove();
-                    $.each(data, function(index, value) {
-//                    	$quartiers.append('<option value="'+ index +'">'+ value +'</option>');
-                    	//$quartiers.append('<form:options items="${allQuartiers}" itemValue="'+libelleQuartier+'"" itemLabel="'+libelleQuartier+'"');
-                    	$quartiers.append('<option value="'+ value +'">'+ value +'</option>');
-                    });
+                	
+                	for(iterator in data){
+                		console.log("test item niveau 1 :" + data[iterator].libelleQuartier);
+                		$quartiers.append('<option value="'+ data[iterator].libelleQuartier +'">'+ data[iterator].libelleQuartier +'</option>');
+                	}
+                	
+//                    $.each(data, function(item) {
+//                    	console.log("each :" + data[item].libelleQuartier);
+//                    	$quartiers.append('<option value="'+ data[item].libelleQuartier +'">'+ data[item].libelleQuartier +'</option>');
+                    	
+//                    });
                 }
             });
         }

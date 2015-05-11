@@ -33,6 +33,12 @@ public interface LogementDAO extends JpaRepository<Logement, Integer> {
 			+ "WHERE l.loyer BETWEEN :loyerMin AND :loyerMax")
 	Set<Logement> findByLoyer(@Param("loyerMin") Double loyerMin, @Param("loyerMax") Double loyerMax);
 	
+//	@Query("select l from Logement l "
+//			+ "left join l.proprietaire p "
+//			+ "left join l.typeLogement t"
+//			+ "left join l.quartier "
+//			+ "left join ");
+	
 
 	
 //	@Query("SELECT p FROM Logement l JOIN l.proprietaire p")
