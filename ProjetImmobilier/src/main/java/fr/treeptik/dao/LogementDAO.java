@@ -33,11 +33,22 @@ public interface LogementDAO extends JpaRepository<Logement, Integer> {
 			+ "WHERE l.loyer BETWEEN :loyerMin AND :loyerMax")
 	Set<Logement> findByLoyer(@Param("loyerMin") Double loyerMin, @Param("loyerMax") Double loyerMax);
 	
-//	@Query("select l from Logement l "
-//			+ "left join l.proprietaire p "
-//			+ "left join l.typeLogement t"
-//			+ "left join l.quartier "
-//			+ "left join ");
+	@Query("select l from Logement l "
+			+ "left join l.proprietaire p "
+			+ "left join l.typeLogement t "
+			+ "left join l.quartier q "
+			+ "left join q.commune c "
+			+ "where :superficieMIN is null or :superficieMIN = '' or :superficieMAX is null or :superficieMAX = '' or l.superficie between :superficieMIN and :superficieMAX "
+			+ "and :loyerMIN is null or :loyerMIN = '' or :loyerMAX is null or :loyerMAX = '' or l.loyer between :loyerMIN and :loyerMAX "
+			+ "and :libelleQuartier is null or :libelleQuartier = '' or q.libelleQuartier = :libelleQuartier "
+			+ "and :nomCommune is null or :nomCommune = '' or c.nomCommune = :nomCommune")
+	List<Logement> multiSearch(
+			@Param("superficieMIN") Integer superficieMIN,
+			@Param("superficieMAX") Integer superficieMAX,
+			@Param("loyerMIN") Double loyerMIN,
+			@Param("loyerMAX") Double loyerMAX,
+			@Param("libelleQuartier") String libelleQuartier,
+			@Param("nomCommune") String nomCommune);
 	
 
 	

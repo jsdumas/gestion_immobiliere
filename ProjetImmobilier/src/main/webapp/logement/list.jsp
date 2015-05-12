@@ -53,7 +53,6 @@
 
 			</c:forEach>
 			
-			${sm.commune }
 		</table>
 		</section>
 		

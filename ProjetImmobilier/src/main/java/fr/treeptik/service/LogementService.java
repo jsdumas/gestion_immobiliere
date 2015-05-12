@@ -20,16 +20,16 @@ import fr.treeptik.model.Quartier;
 
 @Service
 public class LogementService {
-	
+
 	private Logger logger = Logger.getLogger(LogementService.class);
-	
+
 	@Autowired
 	private LogementDAO logementDAO;
 	@Autowired
 	private CommuneDAO communeDAO;
 	@Autowired
 	private QuartierDAO quartierDAO;
-	
+
 	public List<Logement> findAll() throws ServiceException {
 		try {
 			return logementDAO.findAll();
@@ -37,15 +37,16 @@ public class LogementService {
 			throw new ServiceException("erreur de LogementService findAll", e);
 		}
 	}
-	
+
 	public List<Logement> findAllByEstDispo() throws ServiceException {
 		try {
 			return logementDAO.findAllByEstDispo();
 		} catch (DataAccessException e) {
-			throw new ServiceException("erreur de LogementService findAllByEstDispo", e);
+			throw new ServiceException(
+					"erreur de LogementService findAllByEstDispo", e);
 		}
 	}
-	
+
 	@Transactional
 	public Logement save(Logement logement) throws ServiceException {
 		try {
@@ -54,15 +55,15 @@ public class LogementService {
 			throw new ServiceException("erreur de LogementService save", e);
 		}
 	}
-	
-	public Logement findOne(Integer id) throws ServiceException{
+
+	public Logement findOne(Integer id) throws ServiceException {
 		try {
 			return logementDAO.findOne(id);
 		} catch (DataAccessException e) {
 			throw new ServiceException("erreur de LogementService findOne", e);
 		}
 	}
-	
+
 	@Transactional
 	public Logement delete(Integer id) throws ServiceException {
 		try {
@@ -72,46 +73,57 @@ public class LogementService {
 			throw new ServiceException("erreur de LogementService delete", e);
 		}
 	}
-	
-	public Set<Logement> findByQuartier(Quartier quartier) throws ServiceException {
+
+	public Set<Logement> findByQuartier(Quartier quartier)
+			throws ServiceException {
 		try {
 			return logementDAO.findByQuartier(quartier);
 		} catch (DataAccessException e) {
-			throw new ServiceException("erreur de LogementService findByQuartier", e);
+			throw new ServiceException(
+					"erreur de LogementService findByQuartier", e);
 		}
 	}
-	
-	public Set<Logement> findByLoyer(Double loyerMin, Double loyerMax) throws ServiceException {
+
+	public Set<Logement> findByLoyer(Double loyerMin, Double loyerMax)
+			throws ServiceException {
 		try {
 			return logementDAO.findByLoyer(loyerMin, loyerMax);
 		} catch (DataAccessException e) {
-			throw new ServiceException("erreur de LogementService findByLoyer", e);
+			throw new ServiceException("erreur de LogementService findByLoyer",
+					e);
 		}
 	}
-	
-	public Set<Logement> searchLogement(String nomCommune){
-		
-		Commune commune = communeDAO.findByNomCommune(nomCommune);
-		
-		return logementDAO.findByCommune(commune);
+
+
+//	public Set<Logement> searchLogement(String commune, String libelleQuartier) {
+//
+//		Set<Logement> logementsByCommune = this.searchLogement(commune);
+//		Set<Logement> logements = this.searchLogement(commune);
+//
+//		for (Logement logement : logementsByCommune) {
+//			logger.info("Logement before if : getQuartier "
+//					+ logement.getQuartier().getLibelleQuartier()
+//					+ " libelleQuartier : " + libelleQuartier);
+//			if (logement.getQuartier().getLibelleQuartier()
+//					.equals(libelleQuartier)) {
+//				logger.info("Logement during if : "
+//						+ logement.getQuartier().getLibelleQuartier());
+//				logements.remove(logement);
+//			}
+//		}
+//
+//		return logements;
+//	}
+
+	public List<Logement> multiSearchLogement(Integer superficieMIN,
+											Integer superficieMAX,
+											Double loyerMIN,
+											Double loyerMAX,
+											String libelleQuartier,
+											String nomCommune) {
+		return logementDAO.multiSearch(superficieMIN, superficieMAX, loyerMIN, loyerMAX, libelleQuartier, nomCommune);
 	}
 	
-	public Set<Logement> searchLogement(String commune, String libelleQuartier){
-		
-//		Quartier quartier = quartierDAO.findByLibelleQuartier(libelleQuartier);
-		
-		Set<Logement> logementsByCommune = this.searchLogement(commune);
-		Set<Logement> logements = this.searchLogement(commune); 
-				
-		for (Logement logement : logementsByCommune) {
-			logger.info("Logement before if : getQuartier " + logement.getQuartier().getLibelleQuartier() + " libelleQuartier : " + libelleQuartier);
-			if(logement.getQuartier().getLibelleQuartier().equals(libelleQuartier)){
-				logger.info("Logement during if : " + logement.getQuartier().getLibelleQuartier());
-				logements.remove(logement);
-			}
-		}
-		
-		return logements;
-	}
+
 
 }

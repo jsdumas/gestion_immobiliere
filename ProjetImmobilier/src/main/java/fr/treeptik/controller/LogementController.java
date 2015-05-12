@@ -24,7 +24,7 @@ import fr.treeptik.exception.ServiceException;
 import fr.treeptik.model.Commune;
 import fr.treeptik.model.Logement;
 import fr.treeptik.model.Quartier;
-import fr.treeptik.model.SearchModel;
+import fr.treeptik.model.SearchDTO;
 import fr.treeptik.service.CommuneService;
 import fr.treeptik.service.LogementService;
 import fr.treeptik.service.QuartierService;
@@ -47,6 +47,8 @@ public class LogementController implements Serializable {
 	private CommuneService communeService;
 	@Autowired
 	private QuartierService quartierService;
+	
+	
 
 	@ModelAttribute("allCommunes")
 	public List<Commune> populateCommunes() throws ControllerException {
@@ -61,8 +63,6 @@ public class LogementController implements Serializable {
 		}
 
 	}
-
-	
 
 	@ModelAttribute("allQuartiers")
 	public List<Quartier> populateQuartiers() throws ControllerException {
@@ -109,26 +109,27 @@ public class LogementController implements Serializable {
 		
 		this.getCommunesList();
 //		this.getQuartierList(nomCommune);
-		model.addAttribute("searchModel", new SearchModel());
+		model.addAttribute("searchDTO", new SearchDTO());
 		return "index.jsp";
 	}
-	
-	
-	
+
 
 	@RequestMapping(value = "/index.do", method = RequestMethod.POST)
-	public ModelAndView submitForm(SearchModel searchModel, BindingResult result) {
+	public ModelAndView submitForm(SearchDTO searchDTO, BindingResult result) {
 
-		Set<Logement> logements = null;
+		List<Logement> logements = null;
+		
+		Integer superficieMIN = null;
+		Integer superficieMAX = null;
+		Double loyerMIN = null;
+		Double loyerMAX = null;
+		String libelleQuartier = searchDTO.getQuartier();
+		String nomCommune = searchDTO.getCommune();
+		
+		logger.debug("libelleQuartier : " + libelleQuartier + " nomCommune : " + nomCommune);
 
-		if (!searchModel.getCommune().trim().isEmpty()
-				&& searchModel.getQuartier().trim().isEmpty()) {
-			logements = logementService
-					.searchLogement(searchModel.getCommune());
-		} else {
-			logements = logementService.searchLogement(
-					searchModel.getCommune(), searchModel.getQuartier());
-		}
+		logements = logementService.multiSearchLogement(superficieMIN, superficieMAX, loyerMIN, loyerMAX, libelleQuartier, nomCommune);
+
 
 		// if(result.hasErrors()){
 		// return "index.jsp";

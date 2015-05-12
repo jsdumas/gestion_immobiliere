@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchModel implements Serializable{
+public class SearchDTO implements Serializable{
 	
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class SearchModel implements Serializable{
 	private String commune;
 	private String quartier;
 	
-	public SearchModel() {
+	public SearchDTO() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -33,12 +33,12 @@ insert into Individu values (4, '1952-03-08', 'Dargilo', '0421459632', 'Albert')
 insert into Individu values (5, '1980-05-02', 'Gobert', '0745963212', 'Françoise');
 insert into Individu values (6, '1958-03-14', 'Dacunto', '0645896325', 'Denise');
 
-insert into Logement values (1, 0, 550, 'Rue du puisatier', '9', '90m2', 1, 1, 1);
-insert into Logement values (2, 1, 600, 'Rue Anatole France', '10', '80m2', 2, 2, 2);
-insert into Logement values (3, 1, 700, 'Rue Frédéric Mistral', '8', '70m2', 3, 3, 3);
-insert into Logement values (4, 1, 750, 'Rue Maréchal Joffre', '2', '85m2', 4, 4, 1);
-insert into Logement values (5, 1, 800, 'Boulevard Charles de Gaulle', '4 bis', '100m2', 5, 5, 2);
-insert into Logement values (6, 0, 900, 'Boulevard Carnot', '1', '110m2', 6, 6, 3);
+insert into Logement values (1, 0, 550, 'Rue du puisatier', '9', 90, 1, 1, 1);
+insert into Logement values (2, 1, 600, 'Rue Anatole France', '10', 80, 2, 2, 2);
+insert into Logement values (3, 1, 700, 'Rue Frédéric Mistral', '8', 70, 3, 3, 3);
+insert into Logement values (4, 1, 750, 'Rue Maréchal Joffre', '2', 85, 4, 4, 1);
+insert into Logement values (5, 1, 800, 'Boulevard Charles de Gaulle', '4 bis', 100, 5, 5, 2);
+insert into Logement values (6, 0, 900, 'Boulevard Carnot', '1', 110, 6, 6, 3);
 
 insert into Logement_datesAnnonce values (1, '2015-04-23');
 insert into Logement_datesAnnonce values (2, '2015-04-24');

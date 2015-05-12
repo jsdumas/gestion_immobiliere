@@ -24,7 +24,7 @@ public class Logement implements Serializable {
 	private Integer id;
 	private String numeroRue;
 	private String nomRue;
-	private String superficie;
+	private Integer superficie;
 	private boolean estDispo;
 	private Double loyer;
 	@ManyToOne
@@ -44,7 +44,7 @@ public class Logement implements Serializable {
 	}
 
 	public Logement(Integer id, String numeroRue, String nomRue,
-			String superficie, boolean estDispo, Double loyer,
+			Integer superficie, boolean estDispo, Double loyer,
 			Individu proprietaire, TypeLogement typeLogement, Quartier quartier) {
 		super();
 		this.id = id;
@@ -122,11 +122,11 @@ public class Logement implements Serializable {
 		this.nomRue = nomRue;
 	}
 
-	public String getSuperficie() {
+	public Integer getSuperficie() {
 		return superficie;
 	}
 
-	public void setSuperficie(String superficie) {
+	public void setSuperficie(Integer superficie) {
 		this.superficie = superficie;
 	}
 

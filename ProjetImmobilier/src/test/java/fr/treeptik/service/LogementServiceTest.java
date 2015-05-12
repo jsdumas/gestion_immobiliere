@@ -71,7 +71,7 @@ public class LogementServiceTest {
 			Set<Date> dateAnnonces = new TreeSet<Date>();
 			logement.setNumeroRue("24");
 			logement.setNomRue("rue Alphonse Daudet");
-			logement.setSuperficie("1000 m2");
+			logement.setSuperficie(1000);
 			logement.setEstDispo(true);
 			logement.setLoyer(1500.00);
 			logement.setTypeLogement(typeLogement);
@@ -79,7 +79,7 @@ public class LogementServiceTest {
 			logement.setProprietaire(proprietaire);
 			dateAnnonces.add(new Date(2015-05-04));
 			logement.setDatesAnnonce(dateAnnonces);
-			logement.setSuperficie("300 m2");
+			logement.setSuperficie(300);
 			
 			logementService.save(logement);
 			

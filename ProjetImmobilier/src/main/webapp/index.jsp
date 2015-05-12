@@ -28,7 +28,7 @@
 		</header>
 
 		<aside>
-			<form:form action="" commandName="searchModel"
+			<form:form action="" commandName="searchDTO"
 				method="POST">
 				<label>Ville</label>
 				<form:select id="communes" path="commune">
