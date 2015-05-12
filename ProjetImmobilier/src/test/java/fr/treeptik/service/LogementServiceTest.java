@@ -118,7 +118,7 @@ public class LogementServiceTest {
 	@Test
 	public void findByLoyer(){
 		try {
-			Set<Logement> logements = logementService.findByLoyer(200.00, 600.00);
+			List<Logement> logements = logementService.findByLoyer(200.00, 600.00);
 			for (Logement logement : logements) {
 				System.out.println("********************************");
 				System.out.println("Find by Loyer : " + logement);

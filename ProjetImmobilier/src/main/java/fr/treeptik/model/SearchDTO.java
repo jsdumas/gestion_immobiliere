@@ -15,6 +15,8 @@ public class SearchDTO implements Serializable{
 	
 	private String commune;
 	private String quartier;
+	private Double prixMin;
+	private Double prixMax;
 	
 	public SearchDTO() {
 		// TODO Auto-generated constructor stub
@@ -34,6 +36,22 @@ public class SearchDTO implements Serializable{
 
 	public void setQuartier(String quartier) {
 		this.quartier = quartier;
+	}
+
+	public Double getPrixMin() {
+		return prixMin;
+	}
+
+	public void setPrixMin(Double prixMin) {
+		this.prixMin = prixMin;
+	}
+
+	public Double getPrixMax() {
+		return prixMax;
+	}
+
+	public void setPrixMax(Double prixMax) {
+		this.prixMax = prixMax;
 	}
 	
 }

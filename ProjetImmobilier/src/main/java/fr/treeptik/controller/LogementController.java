@@ -3,6 +3,7 @@ package fr.treeptik.controller;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,9 +79,29 @@ public class LogementController implements Serializable {
 
 	}
 	
+	@ModelAttribute("prixMin")
+	public Set<Double> populatePrixMin() {
+
+		Set<Double> prixMinimum = new TreeSet<Double>();
+		prixMinimum.add(300.00);
+		prixMinimum.add(400.00);
+		prixMinimum.add(500.00);
+		prixMinimum.add(600.00);
+		prixMinimum.add(700.00);
+		prixMinimum.add(800.00);
+		prixMinimum.add(900.00);
+		prixMinimum.add(1000.00);
+		prixMinimum.add(1100.00);
+		prixMinimum.add(1200.00);
+		return prixMinimum;
+
+	}
+	
+	
+	
 //	@RequestMapping(value = "index.jsp", method = RequestMethod.GET)
 //	@ResponseStatus(value = HttpStatus.OK)
-	public @ResponseBody List<Commune> getCommunesList() throws ControllerException {
+	public List<Commune> getCommunesList() throws ControllerException {
 		try {
 			List<Commune> communes = communeService.findAll();
 			return communes;
@@ -103,6 +124,24 @@ public class LogementController implements Serializable {
 		}
 	}
 	
+	
+	
+	@RequestMapping(value = "/prix.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Set<Double> populatePrixMax(@RequestParam("minimum") Double prixMinimum){
+		logger.debug("prix minimum : " + prixMinimum);
+		Set<Double> prixMax = new TreeSet<Double>();
+		
+		Integer iter = (int) (11-(prixMinimum/100));
+		
+		for(int i=iter; i>=0; i--){
+			prixMinimum+=100.00;
+			prixMax.add(prixMinimum);
+		}
+		
+		return prixMax;
+	}
+	
 
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String initForm(Model model) throws ControllerException {
@@ -115,21 +154,23 @@ public class LogementController implements Serializable {
 
 
 	@RequestMapping(value = "/index.do", method = RequestMethod.POST)
-	public ModelAndView submitForm(SearchDTO searchDTO, BindingResult result) {
+	public ModelAndView submitForm(SearchDTO searchDTO, BindingResult result) throws ServiceException {
 
 		List<Logement> logements = null;
 		
 		Integer superficieMIN = null;
 		Integer superficieMAX = null;
-		Double loyerMIN = null;
-		Double loyerMAX = null;
+		Double loyerMIN = searchDTO.getPrixMin();
+		Double loyerMAX = searchDTO.getPrixMax();
 		String libelleQuartier = searchDTO.getQuartier();
 		String nomCommune = searchDTO.getCommune();
 		
 		logger.debug("libelleQuartier : " + libelleQuartier + " nomCommune : " + nomCommune);
+		logger.debug("loyerMIN : " + loyerMIN + " loyerMAX : " + loyerMAX);
 
 		logements = logementService.multiSearchLogement(superficieMIN, superficieMAX, loyerMIN, loyerMAX, libelleQuartier, nomCommune);
-
+			
+//		logements = logementService.findByLoyer(300.00, 700.00);
 
 		// if(result.hasErrors()){
 		// return "index.jsp";

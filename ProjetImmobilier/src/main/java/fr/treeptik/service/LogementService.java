@@ -1,6 +1,5 @@
 package fr.treeptik.service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -84,7 +83,7 @@ public class LogementService {
 		}
 	}
 
-	public Set<Logement> findByLoyer(Double loyerMin, Double loyerMax)
+	public List<Logement> findByLoyer(Double loyerMin, Double loyerMax)
 			throws ServiceException {
 		try {
 			return logementDAO.findByLoyer(loyerMin, loyerMax);
@@ -115,12 +114,9 @@ public class LogementService {
 //		return logements;
 //	}
 
-	public List<Logement> multiSearchLogement(Integer superficieMIN,
-											Integer superficieMAX,
-											Double loyerMIN,
-											Double loyerMAX,
-											String libelleQuartier,
-											String nomCommune) {
+	public List<Logement> multiSearchLogement(Integer superficieMIN,Integer superficieMAX,
+											Double loyerMIN, Double loyerMAX,
+											String libelleQuartier, String nomCommune) {
 		return logementDAO.multiSearch(superficieMIN, superficieMAX, loyerMIN, loyerMAX, libelleQuartier, nomCommune);
 	}
 	
